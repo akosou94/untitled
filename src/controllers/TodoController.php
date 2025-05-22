@@ -52,10 +52,6 @@ class TodoController
                 $this->add($newTodo);
             }
         }
-
-        $todos = $this->store->read();
-
-        echo View::render('index', ['todos' => $todos]);
     }
 
     public function doneRoute(): void {
@@ -67,10 +63,6 @@ class TodoController
                 $this->done($todoId, $isDone);
             }
         }
-
-        $todos = $this->store->read();
-
-        echo View::render('index', ['todos' => $todos]);
     }
 
     public function handle(): void {
@@ -86,5 +78,9 @@ class TodoController
                 }
             }
         }
+
+        $todos = $this->store->read();
+
+        echo View::render('index', ['todos' => $todos]);
     }
 }

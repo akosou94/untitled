@@ -10,15 +10,14 @@
 </head>
 <body>
 <div class="container">
-    <form action="index.php" method="post">
-        <div style="
-         display: flex;
-         gap: 10px;
-">
+    <form action="/todo" method="post">
+        <input type="hidden" name="action" value="add">
+        <div style="display: flex; gap: 10px;">
             <label>
-                Введите задачу: <input type="text" name="Todo" value=""/><br/>
+                Введите задачу:
+                <input type="text" name="Todo" required>
             </label>
-            <input type="submit" name="submit" value="Добавить"/>
+            <input type="submit" value="Добавить">
         </div>
     </form>
 
@@ -42,16 +41,14 @@
                     endif; ?>
                     <?= $todo['done'] ? '✅' : '❌' ?>
 
-                    <form method="post" style="display:inline;">
+                    <form action="/todo" method="post" style="display:inline;">
+                        <input type="hidden" name="action" value="done">
                         <input type="hidden" name="Todo_id"
-                               value="<?= $todo['id']; ?>">
-                        <label>
-                            <input type="checkbox"
-                                   name="complete"
-                                <?= $todo['done'] ? 'checked' : '' ?>
-                                   onchange="this.form.submit()">
-                            <?= $todo['done'] ? 'Выполнено' : 'Не выполнено' ?>
-                        </label>
+                               value="<?= $todo['id'] ?>">
+                        <input type="checkbox"
+                               name="complete"
+                            <?= $todo['done'] ? 'checked' : '' ?>
+                               onchange="this.form.submit()">
                     </form>
                 </li>
             <?php

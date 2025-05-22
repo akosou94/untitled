@@ -72,4 +72,19 @@ class TodoController
 
         echo View::render('index', ['todos' => $todos]);
     }
+
+    public function handle(): void {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['action'])) {
+                switch ($_POST['action']) {
+                    case 'add':
+                        $this->addRoute();
+                        break;
+                    case 'done':
+                        $this->doneRoute();
+                        break;
+                }
+            }
+        }
+    }
 }

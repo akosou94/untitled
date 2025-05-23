@@ -52,6 +52,8 @@ class TodoController
                 $this->add($newTodo);
             }
         }
+
+        $this->index();
     }
 
     public function doneRoute(): void {
@@ -63,24 +65,7 @@ class TodoController
                 $this->done($todoId, $isDone);
             }
         }
-    }
 
-    public function handle(): void {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['action'])) {
-                switch ($_POST['action']) {
-                    case 'add':
-                        $this->addRoute();
-                        break;
-                    case 'done':
-                        $this->doneRoute();
-                        break;
-                }
-            }
-        }
-
-        $todos = $this->store->read();
-
-        echo View::render('index', ['todos' => $todos]);
+        $this->index();
     }
 }

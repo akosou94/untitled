@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="/todo" method="post">
+    <form action="/todo/add" method="post">
         <input type="hidden" name="action" value="add">
         <div style="display: flex; gap: 10px;">
             <label>
@@ -41,7 +41,8 @@
                     endif; ?>
                     <?= $todo['done'] ? '✅' : '❌' ?>
 
-                    <form action="/todo" method="post" style="display:inline;">
+                    <form action="/todo/done" method="post"
+                          style="display:inline;">
                         <input type="hidden" name="action" value="done">
                         <input type="hidden" name="Todo_id"
                                value="<?= $todo['id'] ?>">

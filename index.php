@@ -13,10 +13,14 @@ $router->add('/', function () {
     $store = new TodoStoreRepository(__DIR__.'/store.json');
     $todoController = new TodoController($store);
     $todoController->index();
-})->add('/todo', function () {
+})->add('/todo/add', function () {
     $store = new TodoStoreRepository(__DIR__.'/store.json');
     $todoController = new TodoController($store);
-    $todoController->handle();
+    $todoController->addRoute();
+})->add('/todo/done', function () {
+    $store = new TodoStoreRepository(__DIR__.'/store.json');
+    $todoController = new TodoController($store);
+    $todoController->doneRoute();
 })->run();
 
 ?>

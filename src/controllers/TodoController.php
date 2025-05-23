@@ -27,11 +27,12 @@ class TodoController
                 $data = $this->store->read();
                 $data[] = $newTodo->toArray();
 
-                header('Location: /');
 
                 return $this->store->write($data);
             }
         }
+
+        header('Location: /');
     }
 
     public function done() {
@@ -49,11 +50,12 @@ class TodoController
                     }
                 }
 
-                header('Location: /');
 
                 return $this->store->write($data);
             }
         }
+        
+        header('Location: /');
     }
 
     public function index(): void {

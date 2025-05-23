@@ -42,30 +42,4 @@ class TodoController
 
         echo View::render('index', ['todos' => $todos]);
     }
-
-    public function addRoute(): void {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['Todo'])) {
-                $text = $_POST['Todo'];
-
-                $newTodo = new TodoItemModel(time(), $text, false);
-                $this->add($newTodo);
-            }
-        }
-
-        $this->index();
-    }
-
-    public function doneRoute(): void {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['Todo_id'])) {
-                $todoId = (int)$_POST['Todo_id'];
-                $isDone = isset($_POST['complete']);
-
-                $this->done($todoId, $isDone);
-            }
-        }
-
-        $this->index();
-    }
 }

@@ -14,27 +14,46 @@ class TodoController
         $this->store = $store;
     }
 
-    public function add(TodoItemModel $todo): bool {
-        if (empty($todo->title)) {
-            return false;
-        }
+    public function add() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['Todo'])) {
+                $text = $_POST['Todo'];
 
-        $data = $this->store->read();
-        $data[] = $todo->toArray();
+                $newTodo = new TodoItemModel(time(), $text, false);
+                if (empty($newTodo->title)) {
+                    return false;
+                }
 
-        return $this->store->write($data);
-    }
+                $data = $this->store->read();
+                $data[] = $newTodo->toArray();
 
-    public function done(int $id, bool $checked): bool {
-        $data = $this->store->read();
+                header('Location: /');
 
-        foreach ($data as $key => $item) {
-            if ($item['id'] === $id) {
-                $data[$key]['done'] = $checked;
+                return $this->store->write($data);
             }
         }
+    }
 
-        return $this->store->write($data);
+    public function done() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['Todo_id'])) {
+                $todoId = (int)$_POST['Todo_id'];
+                $isDone = isset($_POST['complete']);
+
+
+                $data = $this->store->read();
+
+                foreach ($data as $key => $item) {
+                    if ($item['id'] === $todoId) {
+                        $data[$key]['done'] = $isDone;
+                    }
+                }
+
+                header('Location: /');
+
+                return $this->store->write($data);
+            }
+        }
     }
 
     public function index(): void {

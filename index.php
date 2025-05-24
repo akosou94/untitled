@@ -13,5 +13,4 @@ $todoController = new TodoController($store);
     ->add('/todo/add', fn() => $todoController->add())
     ->add('/todo/done', fn() => $todoController->done())
     ->run();
-
 ?>

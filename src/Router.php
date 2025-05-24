@@ -13,16 +13,13 @@ class Router
     }
 
     public function run(): void {
-        $path = $_SERVER['REQUEST_URI'];
+        $path = strtok($_SERVER['REQUEST_URI'], '?');
 
         if (isset($this->urls[$path])) {
             $this->urls[$path]();
-        } elseif (!isset($this->urls[$path])) {
+        } else {
             http_response_code(404);
             echo 'Страница не найдена';
-            exit(0);
-        } else {
-            header('Location: /');
             exit(0);
         }
     }

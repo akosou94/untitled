@@ -11,7 +11,12 @@ class TodoController
     public TodoStoreRepository $store;
 
     public function __construct(TodoStoreRepository $store) {
-        $this->store = $store;
+        if (!$_SESSION['user']) {
+            header('Location: /login');
+            $this->store = $store;
+
+            exit;
+        }
     }
 
     public function add() {
@@ -55,11 +60,6 @@ class TodoController
     }
 
     public function index(): void {
-        if (!$_SESSION['user']) {
-            header('Location: /login');
-            exit;
-        }
-
         $todos = $this->store->read();
 
         echo View::render('index', ['todos' => $todos]);

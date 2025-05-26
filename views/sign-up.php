@@ -2,28 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация</title>
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-<form action="/login/sign-up" method="post">
+
+<form class="auto" action="/login/sign-up" method="post">
     <input type="hidden" name="action">
-    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 300px;
-padding: 24px 20px; border: 2px solid darkblue; border-radius: 12px; margin: 50px auto 0">
+
+    <div class="form-container">
         <h1>Регистрация</h1>
         <label>
-            <span style="display: inline-block; width: 110px">Логин:</span>
+            <span>Логин</span>
             <input type="text" name="login" required>
         </label>
         <label>
-            <span style="display: inline-block; width: 110px">Пароль:</span>
+            <span>Пароль</span>
             <input type="password" name="password" required>
         </label>
-        <input style="width: fit-content; margin: 10px auto 0" type="submit"
-               value="Зарегистрироваться">
+        <button class="submit-btn" type="submit">Зарегистрироваться</button>
     </div>
 </form>
+
 </body>
 </html>

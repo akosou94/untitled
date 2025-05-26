@@ -9,6 +9,19 @@
     <title>Document</title>
 </head>
 <body>
+<?php
+if (isset($_SESSION['user'])): ?>
+    <h2>Добро пожаловать, <?= htmlspecialchars($_SESSION['user']) ?></h2>
+    <a href="/login/logout">
+        <button>Выйти</button>
+    </a>
+<?php
+else: ?>
+    <a href="/login">
+        <button>Войти</button>
+    </a>
+<?php
+endif; ?>
 <div class="container">
     <form action="/todo/add" method="post">
         <input type="hidden" name="action" value="add">
@@ -21,9 +34,10 @@
         </div>
     </form>
 
-    <h1>
+
+    <h2>
         Список задач:
-    </h1>
+    </h2>
 
     <?php
     if (!empty($todos)): ?>

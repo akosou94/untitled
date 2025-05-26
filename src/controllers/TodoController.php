@@ -27,10 +27,10 @@ class TodoController
             $data[] = $newTodo->toArray();
 
 
+            header('Location: /');
+
             return $this->store->write($data);
         }
-
-        header('Location: /');
     }
 
     public function done() {
@@ -48,13 +48,18 @@ class TodoController
             }
 
 
+            header('Location: /');
+
             return $this->store->write($data);
         }
-
-        header('Location: /');
     }
 
     public function index(): void {
+        if (!$_SESSION['user']) {
+            header('Location: /login');
+            exit;
+        }
+
         $todos = $this->store->read();
 
         echo View::render('index', ['todos' => $todos]);

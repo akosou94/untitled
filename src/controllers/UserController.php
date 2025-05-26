@@ -17,27 +17,88 @@ class UserController
         echo View::render('login');
     }
 
-    public function signIn() {
+    public function getCredentials(): ?array {
         if (!empty($_POST['login']) && !empty($_POST['password'])) {
-            $users = $this->store->read();
+            return [
+                'login'    => $_POST['login'],
+                'password' => $_POST['password'],
+            ];
+        }
 
-            $username = $_POST['login'];
-            $password = $_POST['password'];
+        return null;
+    }
 
-            foreach ($users as $user) {
-                $userKey = key($user);
-                $userValue = current($user);
+    public function findUser(string $username, string $password): bool {
+        $users = $this->store->read();
 
-                if ($username === $userKey && $password === $userValue) {
-                    $_SESSION['user'] = $username;
-                    header('Location: /');
-                    exit();
-                } else {
-                    header('Location: /login');
-                    exit();
-                }
+        foreach ($users as $user) {
+            $userKey = key($user);
+            $userValue = current($user);
+
+            if ($username === $userKey && $password === $userValue) {
+                return true;
             }
+        }
+
+        return false;
+    }
+
+    public function signIn() {
+        $credentials = $this->getCredentials();
+
+        if (!$credentials) {
+            header('Location: /');
+            exit();
+        }
+
+        $username = $credentials['login'];
+        $password = $credentials['password'];
+
+        if ($this->findUser($username, $password)) {
+            $_SESSION['user'] = $username;
+            header('Location: /');
+        } else {
+            header('Location: /login/sign-up');
         }
     }
 
+    public function isUserExists(string $username): bool {
+        $users = $this->store->read();
+
+        foreach ($users as $user) {
+            if (key($user) === $username) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function signUp() {
+        $credentials = $this->getCredentials();
+
+        if (!$credentials) {
+            echo View::render('sign-up');
+
+            return false;
+        }
+
+        $username = $_POST['login'];
+        $password = $_POST['password'];
+
+        if ($this->isUserExists($username)) {
+            echo View::render('sign-up');
+
+            return false;
+        }
+        
+        $users = $this->store->read();
+        $users[] = [$username => $password];
+        $this->store->write($users);
+
+        $_SESSION['user'] = $username;
+
+        header('Location: /');
+        exit();
+    }
 }

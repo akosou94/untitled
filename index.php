@@ -21,6 +21,7 @@ $todoController = new TodoController($todoStore);
     ->add('/todo/done', fn() => $todoController->done())
     ->add('/login', fn() => $userController->login())
     ->add('/login/sign-in', fn() => $userController->signIn())
+    ->add('/login/sign-up', fn() => $userController->signUp())
     ->add('/login/logout', fn() => $session->destroy())
     ->run();
 ?>

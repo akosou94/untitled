@@ -5,14 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Войти</title>
+    <title>Регистрация</title>
 </head>
 <body>
-<form action="/login/sign-in" method="post">
+<form action="/login/sign-up" method="post">
     <input type="hidden" name="action">
     <div style="display: flex; flex-direction: column; gap: 10px; max-width: 300px;
 padding: 24px 20px; border: 2px solid darkblue; border-radius: 12px; margin: 50px auto 0">
-        <h1>Войти</h1>
+        <h1>Регистрация</h1>
         <label>
             <span style="display: inline-block; width: 110px">Логин:</span>
             <input type="text" name="login" required>
@@ -21,8 +21,8 @@ padding: 24px 20px; border: 2px solid darkblue; border-radius: 12px; margin: 50p
             <span style="display: inline-block; width: 110px">Пароль:</span>
             <input type="password" name="password" required>
         </label>
-        <input style="width: 60px; margin: 10px auto 0" type="submit"
-               value="Войти">
+        <input style="width: fit-content; margin: 10px auto 0" type="submit"
+               value="Зарегистрироваться">
     </div>
 </form>
 </body>
